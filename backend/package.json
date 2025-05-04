@@ -1,10 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "private": true,
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "vercel dev",
+    "deploy": "vercel deploy --prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -24,6 +26,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "vercel": "^33.5.1"
   }
 }

@@ -1,21 +1,43 @@
-import axios from 'axios';
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://tt-project-backend.vercel.app/api/v1'
+  : 'http://localhost:3000/api/v1';
 
-const API = axios.create({
-  baseURL: [ 'http://localhost:5000/api/v1', 'https://tutam9-musyaffaimansupriadi-be.vercel.app/api/v1' ],
-  withCredentials: true
-});
+export const todoApi = {
+  async getAllTodos(userId) {
+    const response = await fetch(`${API_URL}/todos?userId=${userId}`);
+    const result = await response.json();
+    return result.data;
+  },
 
+  async createTodo(todo) {
+    const response = await fetch(`${API_URL}/todos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(todo),
+    });
+    const result = await response.json();
+    return result.data;
+  },
 
-API.interceptors.request.use((config) => {
-    return config;
-});
+  async updateTodo(id, updates) {
+    const response = await fetch(`${API_URL}/todos?id=${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updates),
+    });
+    const result = await response.json();
+    return result.data;
+  },
 
-API.interceptors.response.use(
-    (response) => response,
-    (error) => {
-    console.error('API Error:', error.response?.data);
-    return Promise.reject(error);
-    }
-);
-
-export default API;
+  async deleteTodo(id) {
+    const response = await fetch(`${API_URL}/todos?id=${id}`, {
+      method: 'DELETE',
+    });
+    const result = await response.json();
+    return result.data;
+  },
+};

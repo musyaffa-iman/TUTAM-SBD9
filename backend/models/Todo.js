@@ -1,45 +1,39 @@
 const mongoose = require('mongoose');
 
-const TodoSchema = new mongoose.Schema({
-    title: {
+const todoSchema = new mongoose.Schema({
+  title: {
     type: String,
-    required: [true, 'Please add a title']
-    },
-    description: {
+    required: [true, 'Please add a title'],
+    trim: true
+  },
+  completed: {
+    type: Boolean,
+    default: false
+  },
+  important: {
+    type: Boolean,
+    default: false
+  },
+  dueDate: {
     type: String,
-    required: false
-    },
-    dueDate: {
-    type: Date,
-    required: false
-    },
-    category: {
+    default: 'No due date'
+  },
+  category: {
     type: String,
-    enum: ['Work', 'Personal', 'Shopping', 'Health'],
     default: 'Personal'
-    },
-    priority: {
+  },
+  priority: {
     type: String,
-    enum: ['High', 'Medium', 'Low', ''],
+    enum: ['Low', 'Medium', 'High', ''],
     default: ''
-    },
-    completed: {
-    type: Boolean,
-    default: false
-    },
-    important: {
-    type: Boolean,
-    default: false
-    },
-    user: {
-    type: mongoose.Schema.ObjectId,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-    },
-    createdAt: {
-    type: Date,
-    default: Date.now
-    }
+  }
+}, {
+  timestamps: true
 });
 
-module.exports = mongoose.model('Todo', TodoSchema);
+module.exports = mongoose.model('Todo', todoSchema);
