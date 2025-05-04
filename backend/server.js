@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 // Enable CORS
 app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend URL
+    origin: ['http://localhost:5173', 'https://tutam9-musyaffaimansupriadi.vercel.app/'],
     credentials: true
 }));
 
